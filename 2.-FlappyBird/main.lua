@@ -33,12 +33,18 @@ function love.load()
         fullscreen = false,
         resizable = true
     })
+
+    love.keyboard.keyPressed = {}
 end
 
 function love.update(dt)
     backgroundScroll = (backgroundScroll + BACKGROUND_SCROLL_SPEED * dt) % BACKGROUND_LOOPING_POINT
+    
     groundScroll = (groundScroll + GROUND_SCROLL_SPEED * dt) % VIRTUAL_WIDTH
+    
     bird:update(dt)
+    
+    love.keyboard.keyPressed = {}
 end
 
 function love.draw()
@@ -57,10 +63,13 @@ function love.resize(w,h)
 end
 
 function love.keypressed(key)
+    love.keyboard.keyPressed[key] = true
+    
     if key == "escape" then
         love.event.quit()
     end
-    if key == "space" then
-        bird.y = bird.y - 10
-    end
+end
+
+function love.keyboard.wasPressed(key)
+    return love.keyboard.keyPressed[key]
 end
