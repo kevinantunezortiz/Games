@@ -38,7 +38,7 @@ end
 function love.update(dt)
     backgroundScroll = (backgroundScroll + BACKGROUND_SCROLL_SPEED * dt) % BACKGROUND_LOOPING_POINT
     groundScroll = (groundScroll + GROUND_SCROLL_SPEED * dt) % VIRTUAL_WIDTH
-
+    bird:update(dt)
 end
 
 function love.draw()
@@ -48,7 +48,7 @@ function love.draw()
     love.graphics.draw(ground,-groundScroll,VIRTUAL_HEIGHT-16)
 
     bird:render()
-
+    
     push:finish()
 end
 
@@ -59,5 +59,8 @@ end
 function love.keypressed(key)
     if key == "escape" then
         love.event.quit()
+    end
+    if key == "space" then
+        bird.y = bird.y - 10
     end
 end
